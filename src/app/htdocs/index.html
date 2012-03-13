@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xml:lang="en"
+    lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Lounge - CouchDB example</title>
+
+    <link rel="Stylesheet" type="text/css" href="/styles/foundation.css" />
+    <link rel="Stylesheet" type="text/css" href="/styles/ie.css" />
+    <link rel="Stylesheet" type="text/css" href="/styles/jquery-ui-1.8.14.css" />
+    <link rel="Stylesheet" type="text/css" href="/styles/app.css" />
+
+    <script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/jquery/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/jquery/jquery.history.js"></script>
+
+    <script type="text/javascript" src="/scripts/vendor/mustache/mustache.js"></script>
+
+    <script type="text/javascript" src="/scripts/vendor/foundation/foundation.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/foundation/modernizr.foundation.js"></script>
+
+    <script type="text/javascript" src="/scripts/vendor/misc/sha1.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/misc/parseUri.js"></script>
+
+    <script type="text/javascript" src="/scripts/vendor/lounge/lounge.util.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/lounge/lounge.templating.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/lounge/lounge.dispatch.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/lounge/lounge.markCurrent.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/lounge/lounge.router.js"></script>
+
+    <script type="text/javascript" src="/scripts/lounge.module.js"></script>
+    <script type="text/javascript" src="/scripts/lounge.app.js"></script>
+
+    <script type="text/javascript">
+// <![CDATA[
+
+// Globally available variables
+var History;
+
+$().ready(function() {
+
+    // Initilialize application
+    var app    = new Lounge.App();
+    var router = new Lounge.Router( {
+        "main":      /^\/$/,
+        "something": /^\/something\/([A-Za-z0-9_0-9_-]*)/,
+        "404":       /.*/
+    } );
+
+
+    // Start application from currently clicked / used URL
+    (function( window, undefined ) {
+        History = window.History;
+
+        // Bind to StateChange Event
+        History.Adapter.bind( window, 'statechange', function () {
+            var State = History.getState();
+            router.route( parseURL( location.href ) );
+        });
+
+        $( window ).trigger( "statechange" );
+        $( window ).trigger( "contentLoaded", "body" );
+
+    } )( window );
+} );
+
+// ]]>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="header" class="row">
+            <div class="eight columns">
+                <h1>CouchApp &mdash; example app</h1>
+            </div>
+            <div class="four columns">
+                <!-- Do something -->
+            </div>
+        </div>
+        <div id="navigation" class="row">
+            <div class="twelve columns">
+                <dl class="tabs">
+                    <dd><a id="home" href="/" class="active">Home</a></dd>
+                    <dd><a id="something" href="/something/">Something</a></dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="row main">
+            <div class="twelve columns">
+                <div id="content">
+                    <h2>Welcome</h2>
+                    <p>This is a small example application, but it requires JavaScript enabled in your browser.</p>
+                </div>
+            </div>
+        </div>
+        <div id="footer" class="row">
+            <div class="twelve columns center">
+                <strong>A CouchApp demo</strong> by Kore
+            </div>
+        </div>
+    </div>
+</body>
+</html>
