@@ -2,6 +2,9 @@
 CouchDB local configuration
 ===========================
 
+System configuration
+====================
+
 The following lines are required in ``/etc/couchdb/local.ini``::
 
     myapp:5984 = /myapp/_design/app/_rewrite
@@ -9,6 +12,21 @@ The following lines are required in ``/etc/couchdb/local.ini``::
 Then you can request the uploaded website at: http://myapp:5984/
 
 Also add the host ``myapp`` to the ``/etc/hosts`` file.
+
+Pushing the app
+===============
+
+To ppush the application into CouchDB, use the ``push`` script, which is
+available in the ``src/`` directory. The scripts accepts the database URL as a
+first parameter and the path to the application as a second parameter.
+Example::
+
+    ./push http:://user:pass@localhost:5984/database app/
+
+Since sane default values are assumed for most parts of the URL in most cases
+the following thing should also work::
+
+    ./push /database app/
 
 
 ..
