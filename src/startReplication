@@ -1,0 +1,6 @@
+#!/bin/bash
+DB=$1
+IP=$2
+
+curl -X POST http://localhost:5984/_replicate -H 'Content-Type: application/json' -d '{"source":"'$DB'","target":"http://'$IP':5984/'$DB'", "continuous": true}' | jsonpretty -c
+curl -X POST http://localhost:5984/_replicate -H 'Content-Type: application/json' -d '{"target":"'$DB'","source":"http://'$IP':5984/'$DB'", "continuous": true}' | jsonpretty -c
