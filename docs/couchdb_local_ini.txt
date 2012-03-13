@@ -1,0 +1,19 @@
+===========================
+CouchDB local configuration
+===========================
+
+The following lines are required in ``/etc/couchdb/local.ini``::
+
+    myapp:5984 = /myapp/_design/app/_rewrite
+
+Then you can request the uploaded website at: http://myapp:5984/
+
+Also add the host ``myapp`` to the ``/etc/hosts`` file.
+
+
+..
+   Local Variables:
+   mode: rst
+   fill-column: 79
+   End: 
+   vim: et syn=rst tw=79
